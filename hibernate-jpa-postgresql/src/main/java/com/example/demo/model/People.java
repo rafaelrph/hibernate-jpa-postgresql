@@ -4,19 +4,39 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * Model of People
+ * 
+ * @author rafaelrph
+ *
+ */
 @Entity
 public class People {
 
+	/**
+	 * Id attribute
+	 */
 	@Id
 	@GeneratedValue
 	private Integer id;
 	
+	/**
+	 * Name and email attributes
+	 */
 	private String name, email;
 
+	/**
+	 * Constructor without fields
+	 */
 	public People(){
 		
 	}
 	
+	/**
+	 * Constructor with fields
+	 * @param name
+	 * @param email
+	 */
 	public People(String name, String email) {
 		super();
 		this.name = name;

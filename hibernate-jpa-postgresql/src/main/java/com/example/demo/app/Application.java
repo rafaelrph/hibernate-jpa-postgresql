@@ -6,10 +6,24 @@ import java.util.Scanner;
 import com.example.demo.dao.PeopleRepository;
 import com.example.demo.model.People;
 
+/**
+ * Main class for run the project
+ * 
+ * @author rafael.barros
+ *
+ */
 public class Application {
 
+	/**
+	 * People Repository
+	 */
 	private static PeopleRepository peopleRepository = new PeopleRepository();
 	
+	/**
+	 * Main method
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 				
 		try {
@@ -21,26 +35,26 @@ public class Application {
 				menu();
 				option = Integer.parseInt(input.next());
 				switch (option) {
-					case 0:
+					case 0: // 0 - EXIT
 						System.out.println("DONE!");
 						break;
-					case 1:
+					case 1: // 1 - SAVE A NEW OBJECT
 						create(readNew());
 						break;
-					case 2:
+					case 2: // 2 - LIST ALL
 						listAll();
 						break;
-					case 3:
+					case 3: // 3 - FIND BY ID
 						findById(readObjectById());
 						break;
-					case 4:
+					case 4: // 4 - EDIT AN OBJECT
 						edit(readEdit());
 						break;
-					case 5:
+					case 5: // 5 - DELETE AN OBJECT
 						delete(readObjectById());
 						break;
-					case 6:
-						insertMultiples(10000);
+					case 6: // 6 - INSERT MULTIPLE OBJECTS
+						insertMultiples(readQuantity());
 						break;
 					default:
 						System.out.println("Invalid option!");
@@ -55,6 +69,9 @@ public class Application {
 		
 	}
 	
+	/**
+	 * Method for show the menu of options
+	 */
 	public static void menu(){
 		System.out.println("\n");
 		System.out.println("--------------------------------------------------------------");
@@ -73,6 +90,11 @@ public class Application {
 		System.out.print("Informe o Número da opção desejada: ");
 	}
 	
+	/**
+	 * Read the fields of a new object
+	 * 
+	 * @return
+	 */
 	public static People readNew(){
 		System.out.println(" 1 - New");
 		System.out.println("--------------------------------------------------------------");
@@ -88,11 +110,19 @@ public class Application {
 		return new People(name, email);		
 	}
 	
+	/**
+	 * Receive a new object and save on the DB
+	 * 
+	 * @param people
+	 */
 	public static void create(People people){
 		peopleRepository.create(people);
 		System.out.println("OK - Created");
 	}
 	
+	/**
+	 * List all the objects
+	 */
 	public static void listAll(){
 		System.out.println(" 2 - List All");
 		System.out.println("--------------------------------------------------------------");
@@ -102,6 +132,10 @@ public class Application {
 		}
 	}
 	
+	/**
+	 * Read an id, find by id and returns an objects 
+	 * @return
+	 */
 	public static People readObjectById(){
 		Scanner inputId = new Scanner(System.in);
 		System.out.print("ID: ");
@@ -110,6 +144,10 @@ public class Application {
 		return peopleRepository.findById(id);
 	}
 	
+	/**
+	 * List by id
+	 * @param people
+	 */
 	public static void findById(People people){
 		System.out.println(" 3 - Find by Id");
 		System.out.println("--------------------------------------------------------------");
@@ -121,6 +159,11 @@ public class Application {
 		}
 	}
 	
+	/**
+	 * Read an object which will be edited
+	 * 
+	 * @return
+	 */
 	public static People readEdit(){
 		System.out.println(" 4 - Edit");
 		System.out.println("--------------------------------------------------------------");
@@ -143,13 +186,21 @@ public class Application {
 		return people;		
 	}
 	
+	/**
+	 * Update an object
+	 * 
+	 * @param people
+	 */
 	public static void edit(People people) {
 		peopleRepository.update(people);
 		System.out.println("OK - Edited");
 	}
 	
-	
-	
+	/**
+	 * Delete an object
+	 * 
+	 * @param people
+	 */
 	public static void delete(People people){
 		System.out.println(" 5 - Delete");
 		System.out.println("--------------------------------------------------------------");
@@ -162,6 +213,24 @@ public class Application {
 		}
 	}
 	
+	/**
+	 * Read and return the quantity
+	 * 
+	 * @return
+	 */
+	public static int readQuantity(){
+		Scanner inputQuantity = new Scanner(System.in);
+		System.out.print("Quantity: ");
+		int quantity = Integer.parseInt(inputQuantity.next());
+		
+		return quantity;
+	}
+	
+	/**
+	 * Insert multiple objects according to the received quantity
+	 * 
+	 * @param quantity
+	 */
 	public static void insertMultiples(int quantity){
 		System.out.println("OK - Inserting...");
 		long start = System.currentTimeMillis();
